@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>snow fly</title>
+</head>
+<body style="overflow:hidden">
+   
+    <div id="Snowing">
+        <img src="img/snow/snowflake1.png"  />
+        <img src="img/snow/snowflake2.png"  />
+        <img src="img/snow/snowflake3.png"  />
+        <img src="img/snow/snowflake4.png"  />
+        <img src="img/snow/snowflake1.png"  />
+        <img src="img/snow/snowflake2.png"  />
+        <img src="img/snow/snowflake3.png"  />
+        <img src="img/snow/snowflake4.png"  />        <img src="img/snow/snowflake1.png"  />
+        <img src="img/snow/snowflake2.png"  />
+        <img src="img/snow/snowflake3.png"  />
+        <img src="img/snow/snowflake4.png"  />        <img src="img/snow/snowflake1.png"  />
+        <img src="img/snow/snowflake2.png"  />
+        <img src="img/snow/snowflake3.png"  />
+        <img src="img/snow/snowflake4.png"  />
+    </div>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script>
+        (function(){
+
+            var snowing = {
+                run: function () {
+                    var tempHW = snowing.getRandomWh();
+                    $("#Snowing img").each(function () {
+                        var thisLeft=snowing.getLeft();
+                        var thisTop=snowing.getTop();
+                        var thisTop = snowing.getTop();
+
+                        $(this).css({ position: "absolute", zindex: "10000000", opacity: "1", width: tempHW, height: tempHW, left: thisLeft, top: thisTop });
+                        snowing.snowFly(thisLeft, thisTop, tempHW, this)
+                    })
+
+
+                },
+                snowFly: function (iniLeft, iniTop, tempHW,e) {
+                    var speed = [30, 45, 60];
+                    var speedTop = [150, 230, 310];
+                    var LR = [-1, 1];
+                    var timespeed=[4000,5500,6000]
+
+                    var getSpeed = Math.floor((Math.random() * speedTop.length));
+
+                    var getSpeedTop = Math.floor((Math.random() * speedTop.length));
+
+                    var getLR = Math.floor(Math.random() * 2);
+
+                    var getTimeSpeed=Math.floor(Math.random()*3);
+
+
+                    var iLeft, iTop;
+
+                    iLeft=LR[getLR] * speed[getSpeed]+iniLeft;
+                    iTop = speedTop[getSpeedTop] + iniTop;
+
+                    //console.log(LR[getLR])
+
+
+                    //   console.log(iniLeft + "||||||" + LR[getLR] + "||||" + iLeft)
+                    $(e).animate({ left: iLeft, top: iTop }, timespeed[getTimeSpeed], function () {
+                        var thisLeft = snowing.getLeft();
+                        var thisTop = snowing.getTop();
+                        $(this).css({ position: "absolute", zindex: "10000000", opacity: "1", width: tempHW, height: tempHW, left: thisLeft, top: thisTop });
+                        snowing.snowFly(thisLeft, thisTop, tempHW, this)
+                    });
+                    //  snowing.snowFly(iLeft, iTop, tempHW, this)
+                    // clearTimeout(TimeOut);
+                    //   setTimeout("snowing.snowFly(" + iLeft + "," + iTop + "," + tempHW + "," + e + ")", 2000);
+
+
+                },
+                getRandomWh: function () {
+                    var num = ["16px", "17px", "22px", "20px"];
+                    var index = Math.floor((Math.random() * num.length));
+                    return num[index];
+                },
+                getLeft:function(){
+                    var ClientWidth = $(window).width();
+                    var width = Math.floor(Math.random() * ClientWidth);
+                    return width;
+                },
+                getTop: function () {
+                    var ClientHeight = $(window).height()/2;
+                    var height = Math.floor(Math.random() * ClientHeight);
+                    return height;
+                }
+            }
+            snowing.run();
+        })()
+
+    </script>
+</body>
+</html>
